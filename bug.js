@@ -8,8 +8,6 @@
    console.log(apiKey); // Output: your-api-key-here
 
 2. **Simple API URL Constructor (Error: Missing base URL)**
-
-  
 function constructApiUrl(endpoint, params) {
   const url = new URL(`${BASE_URL}/${endpoint}`);
   Object.keys(params).forEach((key) =>
