@@ -4,10 +4,10 @@ For each of the following assignments, there is one intentional error. Your task
 
 1. **API Configuration Variables (Error: Incorrect use of const)**
    ```javascript
-   const BASE_URL = 'https://api.example.com/v1';
-   const API_KEY = 'your-api-key-here';
+    BASE_URL = 'https://api.example.com/v1';
+   let API_KEY = 'your-api-key-here';
 
-   API_KEY = 'new-api-key'; // This line should cause an error
+   API_KEY = 'neconstw-api-key'; // This line should cause an error
 
    console.log(BASE_URL);
    console.log(API_KEY);
@@ -15,25 +15,28 @@ For each of the following assignments, there is one intentional error. Your task
 
 2. **Simple API URL Constructor (Error: Missing base URL)**
    ```javascript
+   const BASE_URL = 'https://api.example.com/v1';
    function constructApiUrl(endpoint) {
-     return `/${endpoint}`;
+   return `${BASE_URL}/${endpoint}`;
    }
-
    console.log(constructApiUrl('weather'));
    // Expected output: https://api.example.com/v1/weather
    ```
 
 3. **Basic API Response Object (Error: Incorrect nesting of properties)**
    ```javascript
-   const apiResponse = {
-     status: 200,
-     temperature: 22,
-     humidity: 60,
-     windSpeed: 5,
-     error: null
-   };
+    const apiResponse = {
+  status: 200,
+  data: {
+  temperature: 22,
+  humidity: 60,
+  windSpeed: 5,
+  },
+  error: null,
+};
 
-   console.log(JSON.stringify(apiResponse, null, 2));
+console.log(JSON.stringify(apiResponse, null, 2));
+
    ```
 
 4. **API Endpoints Array (Error: Duplicate endpoint)**
@@ -41,7 +44,7 @@ For each of the following assignments, there is one intentional error. Your task
    const weatherEndpoints = [
      'current',
      'forecast',
-     'current',
+     'historical',
      'alerts'
    ];
 
@@ -57,7 +60,7 @@ For each of the following assignments, there is one intentional error. Your task
      };
    }
 
-   const weatherData = { temperature: 25, humidity: 70 };
+   const weatherData = { temperature: 25, humid: 70 };
    console.log(simplifyWeatherData(weatherData));
    ```
 
@@ -75,17 +78,20 @@ For each of the following assignments, there is one intentional error. Your task
 7. **Simple Error Handler (Error: Missing condition check)**
    ```javascript
    function handleApiError(response) {
-     console.error(`Error ${response.status}: ${response.message}`);
-   }
+  if(response.status >= 400 ){
+  console.error(`Error ${response.status}: ${response.message}`);
+  }
+  }
 
-   handleApiError({ status: 200, message: 'OK' });
-   // Should not log anything for status 200
-   ```
+
+handleApiError({ status: 200, message: 'OK' });
+handleApiError({ status: 404, message: 'not found' });
+```
 
 8. **Basic Async API Call (Error: Missing await keyword)**
    ```javascript
    async function fetchWeather(city) {
-     const response = fetch(`https://api.example.com/weather?city=${city}`);
+     const response = await fetch(`https://api.example.com/weather?city=${city}`);
      const data = response.json();
      return data;
    }
@@ -105,7 +111,7 @@ For each of the following assignments, there is one intentional error. Your task
    }
 
    async function getProcessedData() {
-     const rawData = fetchData();
+     const rawData = await fetchData();
      return processData(rawData);
    }
 
@@ -120,7 +126,7 @@ For each of the following assignments, there is one intentional error. Your task
 
       return function() {
         const currentTime = Date.now();
-        if (currentTime - startTime <= interval) {
+        if (currentTime - startTime > interval) {
           calls = 0;
           startTime = currentTime;
         }
@@ -130,6 +136,7 @@ For each of the following assignments, there is one intentional error. Your task
           return true;
         } else {
           return false;
+
         }
       };
     }
