@@ -130,7 +130,7 @@
        console.error(`Error ${status}: ${message}`);
        if (errors) {
          errors.forEach((err) => console.error(`- ${err}`));
-       }
+       }  
      }
    }
 
