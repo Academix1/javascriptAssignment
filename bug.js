@@ -33,7 +33,7 @@ For each of the following assignments, there is one intentional error. Your task
      error: null
    };
 
-   console.log(JSON.stringify(apiResponse, null, 2));
+   console.log(JSON.stringify(apiResponse, null, ));
    ```
 
 4. **API Endpoints Array (Error: Duplicate endpoint)**
