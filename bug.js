@@ -5,7 +5,7 @@ For each of the following assignments, there is one intentional error. Your task
 1. **API Configuration Variables (Error: Incorrect use of const)**
    ```javascript
    const BASE_URL = 'https://api.example.com/v1';
-   const API_KEY = 'your-api-key-here';
+   let API_KEY = 'your-api-key-here';
 
    API_KEY = 'new-api-key'; // This line should cause an error
 
@@ -15,9 +15,10 @@ For each of the following assignments, there is one intentional error. Your task
 
 2. **Simple API URL Constructor (Error: Missing base URL)**
    ```javascript
+   const BASE_URL = 'https://api.example.com/v1';
    function constructApiUrl(endpoint) {
-     return `/${endpoint}`;
-   }
+     return `${BASE_URL}/${endpoint}`;
+ }
 
    console.log(constructApiUrl('weather'));
    // Expected output: https://api.example.com/v1/weather
@@ -27,9 +28,11 @@ For each of the following assignments, there is one intentional error. Your task
    ```javascript
    const apiResponse = {
      status: 200,
+     data: {
      temperature: 22,
      humidity: 60,
      windSpeed: 5,
+},
      error: null
    };
 
@@ -38,12 +41,7 @@ For each of the following assignments, there is one intentional error. Your task
 
 4. **API Endpoints Array (Error: Duplicate endpoint)**
    ```javascript
-   const weatherEndpoints = [
-     'current',
-     'forecast',
-     'current',
-     'alerts'
-   ];
+   const weatherEndpoints =["current","forecast", "current", "alerts"];
 
    console.log(weatherEndpoints);
    ```
@@ -53,10 +51,11 @@ For each of the following assignments, there is one intentional error. Your task
    function simplifyWeatherData(data) {
      return {
        temp: data.temperature,
-       humid: data.humid
+       humid: data.humidity
      };
-   }
+}
 
+  
    const weatherData = { temperature: 25, humidity: 70 };
    console.log(simplifyWeatherData(weatherData));
    ```
@@ -85,28 +84,29 @@ For each of the following assignments, there is one intentional error. Your task
 8. **Basic Async API Call (Error: Missing await keyword)**
    ```javascript
    async function fetchWeather(city) {
-     const response = fetch(`https://api.example.com/weather?city=${city}`);
-     const data = response.json();
-     return data;
-   }
-
-   // Usage:
+   const response = await fetch(`https://api.example.com/weather?city=${city}` );
+     const data = await response.json();
+      return data;
+     }
+    
+     // Usage:
    fetchWeather('London').then(console.log);
    ```
 
 9. **Simple Data Processing Chain (Error: Incorrect function call)**
    ```javascript
-   function fetchData() {
+   async function fetchData() {
      return Promise.resolve([1, 2, 3, 4, 5]);
    }
 
-   function processData(data) {
+   async function processData(data) {
      return data.map(n => n * 2);
    }
 
    async function getProcessedData() {
-     const rawData = fetchData();
-     return processData(rawData);
+     const rawData = await fetchData();
+     const processdData= await processData(rawData);
+     return processdData;
    }
 
    getProcessedData().then(console.log);
@@ -121,8 +121,8 @@ For each of the following assignments, there is one intentional error. Your task
       return function() {
         const currentTime = Date.now();
         if (currentTime - startTime <= interval) {
-          calls = 0;
           startTime = currentTime;
+          calls = 0;
         }
 
         if (calls < limit) {
