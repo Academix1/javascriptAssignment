@@ -1,4 +1,4 @@
-1.**Variable declaration and  API configruation**
+//1.**Variable declaration and  API configruation**
  
 
    const BASE_URL = "https://api.example.com/v1";
@@ -7,19 +7,23 @@
    console.log(BASE_URL); // Output: https://api.example.com/v1
    console.log(apiKey); // Output: your-api-key-here
 
-2. **Simple API URL Constructor (Error: Missing base URL)**
-function constructApiUrl(endpoint, params) {
+//2. **Simple API URL Constructor (Error: Missing base URL)**
+
+function constructApiUrl(endpoint, params) 
+{
+function constructApiUrl(endpoint, params)
+ {
   const url = new URL(`${BASE_URL}/${endpoint}`);
   Object.keys(params).forEach((key) =>
     url.searchParams.append(key, params[key])
   );
   return url.toString();
-}
+}}
 
 console.log(constructApiUrl("weather", { city: "London", units: "metric" }));
    
 
-3. **Basic API Response Object (Error: Incorrect nesting of properties)**
+//3. **Basic API Response Object (Error: Incorrect nesting of properties)**
 
    
    const apiResponse = {
@@ -36,7 +40,7 @@ console.log(constructApiUrl("weather", { city: "London", units: "metric" }));
    console.log(JSON.stringify(apiResponse, null, 2));
 
 
-4. **API Endpoints Array (Error: Duplicate endpoint)**
+//4. **API Endpoints Array (Error: Duplicate endpoint)**
 
 
    const weatherEndpoints = ["current","forecast","current","alerts"];
@@ -44,7 +48,7 @@ console.log(constructApiUrl("weather", { city: "London", units: "metric" }));
    console.log(weatherEndpoints);
    
 
-5. **Simple Data Transformation (Error: Incorrect property access)**
+//5. **Simple Data Transformation (Error: Incorrect property access)**
 
   
 function simplifyWeatherData(data) {
@@ -63,7 +67,7 @@ const weatherData = [
 console.log(simplifyWeatherData(weatherData));
   
 
-6. **Basic API Result Filter (Error: Incorrect comparison operator)**
+//6. **Basic API Result Filter (Error: Incorrect comparison operator)**
    
 function filterApiResults(resultsArray, condition) {
   return resultsArray.filter(condition);
@@ -78,7 +82,7 @@ const results = [
 console.log(filterApiResults(results, (item) => item.value > 15));
   
 
-7. **Simple Error Handler (Error: Missing condition check)**
+//7. **Simple Error Handler (Error: Missing condition check)**
   
 function handleApiError(response) {
   if (response.status >= 400) {
@@ -104,7 +108,7 @@ handleApiError({
    
   
 
-8. **Basic Async API Call (Error: Missing await keyword)**
+//8. **Basic Async API Call (Error: Missing await keyword)**
 
 async function fetchApiData(endpoint) {
   try {
@@ -122,7 +126,7 @@ async function fetchApiData(endpoint) {
    console.log(data);
   
 
-9. **Simple Data Processing Chain (Error: Incorrect function call)**
+//9. **Simple Data Processing Chain (Error: Incorrect function call)**
 function fetchData() {
   return Promise.resolve([1, 2, 3, 4, 5]);
 }
@@ -140,7 +144,7 @@ getProcessedData().then(console.log); // Log the processed data
 
   
 
-10. **Basic Rate Limiter (Error: Incorrect time comparison)**
+//10. **Basic Rate Limiter (Error: Incorrect time comparison)**
     
 function createRateLimiter(limit, interval) {
   let calls = 0;
