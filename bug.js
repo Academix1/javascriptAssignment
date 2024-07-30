@@ -57,7 +57,7 @@ For each of the following assignments, there is one intentional error. Your task
      };
    }
 
-   const weatherData = { temperature: 25, humidity: 70 };
+   const weatherData = { temperature: 25, humid: 70 };
    console.log(simplifyWeatherData(weatherData));
    ```
 
