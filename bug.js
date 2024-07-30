@@ -9,8 +9,7 @@
 
 2. **Simple API URL Constructor (Error: Missing base URL)**
 
-  
-function constructApiUrl(endpoint, params) {
+  function constructApiUrl(endpoint, params) {
   const url = new URL(`${BASE_URL}/${endpoint}`);
   Object.keys(params).forEach((key) =>
     url.searchParams.append(key, params[key])
