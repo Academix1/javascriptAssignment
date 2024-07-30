@@ -3,76 +3,71 @@
 For each of the following assignments, there is one intentional error. Your task is to identify and fix the error.
 
 1. **API Configuration Variables (Error: Incorrect use of const)**
-   ```javascript
+   javascript
    const BASE_URL = 'https://api.example.com/v1';
-   const API_KEY = 'your-api-key-here';
+   let API_KEY = 'your-api-key-here';
 
    API_KEY = 'new-api-key'; // This line should cause an error
 
    console.log(BASE_URL);
    console.log(API_KEY);
-   ```
+   
 
-2. **Simple API URL Constructor (Error: Missing base URL)**
-   ```javascript
-   function constructApiUrl(endpoint) {
-     return `/${endpoint}`;
-   }
-
-   console.log(constructApiUrl('weather'));
+2. ``**Simple API URL Constructor (Error: Missing base URL)**
+   ``javascript
+   function constructApiUrl(endpoint, params) {
+    const url = new URL(`${BASE_URL}/${endpoint}`);
+    Object.keys(params).forEach((key) =>
+      url.searchParams.append(key, params[key])
+    );
+    return url.toString();
+  }
    // Expected output: https://api.example.com/v1/weather
    ```
 
-3. **Basic API Response Object (Error: Incorrect nesting of properties)**
+3. ```**Basic API Response Object (Error: Incorrect nesting of properties)**```
    ```javascript
    const apiResponse = {
-     status: 200,
-     temperature: 22,
-     humidity: 60,
-     windSpeed: 5,
-     error: null
-   };
-
+    status: 200,
+    data: {
+      temperature: 22,
+      humidity: 60,
+      windSpeed: 5,
+    },
+    error: null,
+  };
    console.log(JSON.stringify(apiResponse, null, 2));
    ```
 
-4. **API Endpoints Array (Error: Duplicate endpoint)**
+4. ```**API Endpoints Array (Error: Duplicate endpoint)**```
    ```javascript
-   const weatherEndpoints = [
-     'current',
-     'forecast',
-     'current',
-     'alerts'
-   ];
+   const weatherEndpoints = ["current", "forecast", "historical", "alerts"];
 
    console.log(weatherEndpoints);
    ```
 
-5. **Simple Data Transformation (Error: Incorrect property access)**
+5. ```**Simple Data Transformation (Error: Incorrect property access)**```
    ```javascript
    function simplifyWeatherData(data) {
-     return {
-       temp: data.temperature,
-       humid: data.humid
-     };
-   }
+    return {
+      temp: data.temperature,
+      humid: data.humidity
+    };
+  }
 
-   const weatherData = { temperature: 25, humidity: 70 };
-   console.log(simplifyWeatherData(weatherData));
-   ```
-
-6. **Basic API Result Filter (Error: Incorrect comparison operator)**
+  const weatherData = { temperature: 25, humidity: 70 };
+  console.log(simplifyWeatherData(weatherData));
+6. ```**Basic API Result Filter (Error: Incorrect comparison operator)**``
    ```javascript
    function filterHotDays(temperatures) {
-     return temperatures.filter(temp => temp >= 30);
-   }
-
-   const temps = [28, 32, 30, 25, 35];
-   console.log(filterHotDays(temps));
+    return temperatures.filter(temp => temp >= 30);
+  }
+    const temps = [28, 32, 30, 25, 35];
+    console.log(filterHotDays(temps));
    // Expected output: [32, 30, 35]
    ```
 
-7. **Simple Error Handler (Error: Missing condition check)**
+7. ```**Simple Error Handler (Error: Missing condition check)**```
    ```javascript
    function handleApiError(response) {
      console.error(`Error ${response.status}: ${response.message}`);
@@ -82,11 +77,11 @@ For each of the following assignments, there is one intentional error. Your task
    // Should not log anything for status 200
    ```
 
-8. **Basic Async API Call (Error: Missing await keyword)**
+8. ```**Basic Async API Call (Error: Missing await keyword)**```
    ```javascript
    async function fetchWeather(city) {
      const response = fetch(`https://api.example.com/weather?city=${city}`);
-     const data = response.json();
+     const data = await response.json();
      return data;
    }
 
@@ -105,14 +100,14 @@ For each of the following assignments, there is one intentional error. Your task
    }
 
    async function getProcessedData() {
-     const rawData = fetchData();
+     const rawData = await fetchData();
      return processData(rawData);
    }
 
    getProcessedData().then(console.log);
    ```
 
-10. **Basic Rate Limiter (Error: Incorrect time comparison)**
+10. ```**Basic Rate Limiter (Error: Incorrect time comparison)**```
     ```javascript
     function createRateLimiter(limit, interval) {
       let calls = 0;
@@ -120,7 +115,7 @@ For each of the following assignments, there is one intentional error. Your task
 
       return function() {
         const currentTime = Date.now();
-        if (currentTime - startTime <= interval) {
+        if (currentTime - startTime > interval) {
           calls = 0;
           startTime = currentTime;
         }
