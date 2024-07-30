@@ -64,7 +64,7 @@ For each of the following assignments, there is one intentional error. Your task
 6. **Basic API Result Filter (Error: Incorrect comparison operator)**
    ```javascript
    function filterHotDays(temperatures) {
-     return temperatures.filter(temp => temp >= 30);
+     return temperatures.filter(temp => temp => 30);
    }
 
    const temps = [28, 32, 30, 25, 35];
@@ -75,7 +75,7 @@ For each of the following assignments, there is one intentional error. Your task
 7. **Simple Error Handler (Error: Missing condition check)**
    ```javascript
    function handleApiError(response) {
-     console.error(`Error ${response.status}: ${response.message}`);
+     console.error(`Error : ${response.status}: ${response.message}`);
    }
 
    handleApiError({ status: 200, message: 'OK' });
@@ -85,7 +85,7 @@ For each of the following assignments, there is one intentional error. Your task
 8. **Basic Async API Call (Error: Missing await keyword)**
    ```javascript
    async function fetchWeather(city) {
-     const response = fetch(`https://api.example.com/weather?city=${city}`);
+     const response = await fetch(`https://api.example.com/weather?city=${city}`);
      const data = response.json();
      return data;
    }
@@ -105,7 +105,7 @@ For each of the following assignments, there is one intentional error. Your task
    }
 
    async function getProcessedData() {
-     const rawData = fetchData();
+     const rawData = await fetchData();
      return processData(rawData);
    }
 
@@ -120,7 +120,7 @@ For each of the following assignments, there is one intentional error. Your task
 
       return function() {
         const currentTime = Date.now();
-        if (currentTime - startTime <= interval) {
+        if (currentTime - startTime >= interval) {
           calls = 0;
           startTime = currentTime;
         }
