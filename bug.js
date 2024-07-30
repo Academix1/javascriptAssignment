@@ -8,7 +8,7 @@
    console.log(apiKey); // Output: your-api-key-here
 
 2. **Simple API URL Constructor (Error: Missing base URL)**
-//constructors,parameters//
+
   
 function constructApiUrl(endpoint, params) {
   const url = new URL(`${BASE_URL}/${endpoint}`);
@@ -19,11 +19,10 @@ function constructApiUrl(endpoint, params) {
 }
 
 console.log(constructApiUrl("weather", { city: "London", units: "metric" }));
-   // Expected output: https://api.example.com/v1/weather
    
 
 3. **Basic API Response Object (Error: Incorrect nesting of properties)**
-//data will be missing here//
+
    
    const apiResponse = {
      status: 200,
@@ -40,7 +39,7 @@ console.log(constructApiUrl("weather", { city: "London", units: "metric" }));
 
 
 4. **API Endpoints Array (Error: Duplicate endpoint)**
-//array order//
+
 
    const weatherEndpoints = ["current","forecast","current","alerts"];
 
@@ -48,7 +47,7 @@ console.log(constructApiUrl("weather", { city: "London", units: "metric" }));
    
 
 5. **Simple Data Transformation (Error: Incorrect property access)**
-//functioin name//
+
   
 function simplifyWeatherData(data) {
   // Transform the data into an array of objects with `date` and `temp` properties
@@ -104,7 +103,7 @@ handleApiError({
 });
 
    
-   // Should not log anything for status 200
+   
   
 
 8. **Basic Async API Call (Error: Missing await keyword)**
