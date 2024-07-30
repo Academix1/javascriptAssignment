@@ -1,144 +1,184 @@
-# Assignments with Errors to Fix
+1.**Variable declaration and  API configruation**
+ 
 
-For each of the following assignments, there is one intentional error. Your task is to identify and fix the error.
+   const BASE_URL = "https://api.example.com/v1";
+   let apiKey = "your-api-key-here";
 
-1. **API Configuration Variables (Error: Incorrect use of const)**
-   ```javascript
-   const BASE_URL = 'https://api.example.com/v1';
-   const API_KEY = 'your-api-key-here';
-
-   API_KEY = 'new-api-key'; // This line should cause an error
-
-   console.log(BASE_URL);
-   console.log(API_KEY);
-   ```
+   console.log(BASE_URL); // Output: https://api.example.com/v1
+   console.log(apiKey); // Output: your-api-key-here
 
 2. **Simple API URL Constructor (Error: Missing base URL)**
-   ```javascript
-   function constructApiUrl(endpoint) {
-     return `/${endpoint}`;
-   }
+//constructors,parameters//
+  
+function constructApiUrl(endpoint, params) {
+  const url = new URL(`${BASE_URL}/${endpoint}`);
+  Object.keys(params).forEach((key) =>
+    url.searchParams.append(key, params[key])
+  );
+  return url.toString();
+}
 
-   console.log(constructApiUrl('weather'));
+console.log(constructApiUrl("weather", { city: "London", units: "metric" }));
    // Expected output: https://api.example.com/v1/weather
-   ```
+   
 
 3. **Basic API Response Object (Error: Incorrect nesting of properties)**
-   ```javascript
+//data will be missing here//
+   
    const apiResponse = {
      status: 200,
+     data: {
+
      temperature: 22,
      humidity: 60,
      windSpeed: 5,
+    },
      error: null
    };
 
    console.log(JSON.stringify(apiResponse, null, 2));
-   ```
+
 
 4. **API Endpoints Array (Error: Duplicate endpoint)**
-   ```javascript
-   const weatherEndpoints = [
-     'current',
-     'forecast',
-     'current',
-     'alerts'
-   ];
+//array order//
+
+   const weatherEndpoints = ["current","forecast","current","alerts"];
 
    console.log(weatherEndpoints);
-   ```
+   
 
 5. **Simple Data Transformation (Error: Incorrect property access)**
-   ```javascript
-   function simplifyWeatherData(data) {
-     return {
-       temp: data.temperature,
-       humid: data.humid
-     };
-   }
+//functioin name//
+  
+function simplifyWeatherData(data) {
+  // Transform the data into an array of objects with `date` and `temp` properties
+  return data.map(entry => ({
+    date: entry.date,
+    temp: entry.temperature
+  }));
+}
 
-   const weatherData = { temperature: 25, humidity: 70 };
-   console.log(simplifyWeatherData(weatherData));
-   ```
+const weatherData = [
+  { date: '2023-07-01', temperature: 22 },
+  { date: '2023-07-02', temperature: 24 }
+];
+
+console.log(simplifyWeatherData(weatherData));
+  
 
 6. **Basic API Result Filter (Error: Incorrect comparison operator)**
-   ```javascript
-   function filterHotDays(temperatures) {
-     return temperatures.filter(temp => temp >= 30);
-   }
+   
+function filterApiResults(resultsArray, condition) {
+  return resultsArray.filter(condition);
+}
 
-   const temps = [28, 32, 30, 25, 35];
-   console.log(filterHotDays(temps));
-   // Expected output: [32, 30, 35]
-   ```
+const results = [
+  { id: 1, value: 10 },
+  { id: 2, value: 20 },
+  { id: 3, value: 30 },
+];
+
+console.log(filterApiResults(results, (item) => item.value > 15));
+  
 
 7. **Simple Error Handler (Error: Missing condition check)**
-   ```javascript
-   function handleApiError(response) {
-     console.error(`Error ${response.status}: ${response.message}`);
-   }
+  
+function handleApiError(response) {
+  if (response.status >= 400) {
+    console.error(`Error ${response.status}: ${response.message}`);
+    if (response.errors && response.errors.length > 0) {
+      response.errors.forEach((error, index) => {
+        console.error(`- ${error}`);
+      });
+    }
+  } else {
+    console.log(`Success ${response.status}: ${response.message}`);
+  }
+}
 
-   handleApiError({ status: 200, message: 'OK' });
+// Test cases
+handleApiError({
+  status: 404,
+  message: 'Not Found',
+  errors: ['Resource does not exist']
+});
+
+   
    // Should not log anything for status 200
-   ```
+  
 
 8. **Basic Async API Call (Error: Missing await keyword)**
-   ```javascript
-   async function fetchWeather(city) {
-     const response = fetch(`https://api.example.com/weather?city=${city}`);
-     const data = response.json();
-     return data;
-   }
+
+async function fetchApiData(endpoint) {
+  try {
+    const response = await fetch(`${BASE_URL}/${endpoint}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("API call failed:", error);
+  }
+}
+
 
    // Usage:
-   fetchWeather('London').then(console.log);
-   ```
+   const data=await fetchApiData("weather");
+   console.log(data);
+  
 
 9. **Simple Data Processing Chain (Error: Incorrect function call)**
-   ```javascript
-   function fetchData() {
-     return Promise.resolve([1, 2, 3, 4, 5]);
-   }
+function fetchData() {
+  return Promise.resolve([1, 2, 3, 4, 5]);
+}
 
-   function processData(data) {
-     return data.map(n => n * 2);
-   }
+function processData(data) {
+  return data.map(n => n * 2);
+}
 
-   async function getProcessedData() {
-     const rawData = fetchData();
-     return processData(rawData);
-   }
+async function getProcessedData() {
+  const rawData = await fetchData(); 
+  return processData(rawData); // Process the data
+}
 
-   getProcessedData().then(console.log);
-   ```
+getProcessedData().then(console.log); // Log the processed data
+
+  
 
 10. **Basic Rate Limiter (Error: Incorrect time comparison)**
-    ```javascript
-    function createRateLimiter(limit, interval) {
-      let calls = 0;
-      let startTime = Date.now();
+    
+function createRateLimiter(limit, interval) {
+  let calls = 0;
+  let startTime = Date.now();
 
-      return function() {
-        const currentTime = Date.now();
-        if (currentTime - startTime <= interval) {
-          calls = 0;
-          startTime = currentTime;
-        }
-
-        if (calls < limit) {
-          calls++;
-          return true;
-        } else {
-          return false;
-        }
-      };
+  return function() {
+    const currentTime = Date.now();
+    if (currentTime - startTime >= interval) {
+      calls = 0;
+      startTime = currentTime;
+      console.log("Interval reset. Calls count cleared.");
     }
 
-    const rateLimiter = createRateLimiter(3, 1000); // 3 calls per second
-    console.log(rateLimiter()); // true
-    console.log(rateLimiter()); // true
-    console.log(rateLimiter()); // true
-    console.log(rateLimiter()); // Should be false, but might be true
-    ```
+    if (calls < limit) {
+      calls++;
+      return true;
+    } else {
+      return false;
+    }
+  };
+}
 
-For each assignment, try to identify the error and propose a fix. This exercise will help you improve your debugging skills and deepen your understanding of these JavaScript concepts in the context of API interactions.
+// Create a rate limiter with 3 calls per second
+const rateLimiter = createRateLimiter(3, 1000); 
+
+// Test the rate limiter
+console.log(rateLimiter()); // Call allowed. true
+console.log(rateLimiter()); // Call allowed. true
+console.log(rateLimiter()); // Call allowed. true
+console.log(rateLimiter()); // Rate limit exceeded. Call denied. false
+
+
+
+
+
+    
+    
+
