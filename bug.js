@@ -14,36 +14,35 @@ For each of the following assignments, there is one intentional error. Your task
    ```
 
 2. **Simple API URL Constructor (Error: Missing base URL)**
-   ```javascript
+   //```javascript
    function constructApiUrl(endpoint) {
-     return `/${endpoint}`;
+     return `${endpoint}`;
    }
 
-   console.log(constructApiUrl('weather'));
+   console.log(constructApiUrl('https://api.example.com/v1/weather'));
    // Expected output: https://api.example.com/v1/weather
-   ```
+   //```
 
 3. **Basic API Response Object (Error: Incorrect nesting of properties)**
    ```javascript
-   const apiResponse = {
+  const apiResponse = {
      status: 200,
+     data:{
+
+     
      temperature: 22,
      humidity: 60,
      windSpeed: 5,
-     error: null
+     error: null}
    };
 
    console.log(JSON.stringify(apiResponse, null, 2));
    ```
 
 4. **API Endpoints Array (Error: Duplicate endpoint)**
-   ```javascript
-   const weatherEndpoints = [
-     'current',
-     'forecast',
-     'current',
-     'alerts'
-   ];
+  ```javascript
+   const weatherEndpoints = ["current","forecast","current","alerts"];
+    
 
    console.log(weatherEndpoints);
    ```
@@ -53,7 +52,7 @@ For each of the following assignments, there is one intentional error. Your task
    function simplifyWeatherData(data) {
      return {
        temp: data.temperature,
-       humid: data.humid
+       humid: data.humidity,
      };
    }
 
@@ -73,14 +72,15 @@ For each of the following assignments, there is one intentional error. Your task
    ```
 
 7. **Simple Error Handler (Error: Missing condition check)**
-   ```javascript
+   //```javascript
    function handleApiError(response) {
+    if(response.status!=200){
      console.error(`Error ${response.status}: ${response.message}`);
-   }
+   }}
 
    handleApiError({ status: 200, message: 'OK' });
    // Should not log anything for status 200
-   ```
+   //```
 
 8. **Basic Async API Call (Error: Missing await keyword)**
    ```javascript
@@ -105,7 +105,7 @@ For each of the following assignments, there is one intentional error. Your task
    }
 
    async function getProcessedData() {
-     const rawData = fetchData();
+     const rawData = await fetchData();
      return processData(rawData);
    }
 
