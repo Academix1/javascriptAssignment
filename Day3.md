@@ -208,7 +208,7 @@
        })
        .catch(error => console.error(error));
      ```
-   - **Assignment:** Use an API of your choice to fetch data, process it using array methods, and display the results. Make sure to handle errors appropriately.
+**Assignment:** Use an API of your choice to fetch data, process it using array methods, and display the results. Make sure to handle errors appropriately.
 
 ### **Final Project:**
 
