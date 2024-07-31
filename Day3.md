@@ -158,12 +158,13 @@
 1. **Fetch API:**
    - **Explanation:** The Fetch API allows you to make network requests. It’s like making a phone call to another computer to ask for data or send data.
    - **Practice:**
-     ```javascript
-     fetch('https://api.example.com/data')
-       .then(response => response.json())
-       .then(data => console.log(data))
-       .catch(error => console.error('Error:', error));
      ```
+     fetch("https://jsonplaceholder.typicode.com/posts")
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error("Error:", error));
+```
+
    - **Assignment:** Make a GET request to a public API (e.g., JSONPlaceholder). Parse the response and print a list of user names.
 
 ### **Step 8: Combining Everything to Work with APIs**
