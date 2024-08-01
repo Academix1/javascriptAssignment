@@ -16,7 +16,7 @@ For each of the following assignments, there is one intentional error. Your task
 2. **Simple API URL Constructor (Error: Missing base URL)**
    ```javascript
    function constructApiUrl(endpoint) {
-     return `/${endpoint}`;
+     return `${endpoint}`;
    }
 
    console.log(constructApiUrl('weather'));
