@@ -149,6 +149,33 @@
 
      getData();
      ```
+
+```
+const fetchData = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const shouldReject = Math.random() > 0.5; // Randomly decide to reject or resolve
+      if (shouldReject) {
+        reject(new Error("Failed to fetch data"));
+      } else {
+        resolve("Data fetched");
+      }
+    }, 2000);
+  });
+};
+
+const getData = async () => {
+  try {
+    const data = await fetchData();
+    console.log(data);
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+getData();
+
+```
    - **Assignment:** Convert your promise-based code from the previous step to use `async/await`.
 
 ### **Step 7: Fetch API for HTTP Requests**
