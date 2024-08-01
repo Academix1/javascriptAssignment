@@ -77,7 +77,6 @@ function handleApiError(response) {
     console.error(`Error ${response.status}: ${response.message}`);
   }
 }
-
 handleApiError({ status: 200, message: 'OK' });
 // Should not log anything for status 200
 
