@@ -7,7 +7,7 @@ For each of the following assignments, there is one intentional error. Your task
    const BASE_URL = 'https://api.example.com/v1';
    const API_KEY = 'your-api-key-here';
 
-   API_KEY = 'new-api-key'; // This line should cause an error
+   API_KEY : 'new-api-key'; // This line should cause an error
 
    console.log(BASE_URL);
    console.log(API_KEY);
@@ -140,5 +140,7 @@ For each of the following assignments, there is one intentional error. Your task
     console.log(rateLimiter()); // true
     console.log(rateLimiter()); // Should be false, but might be true
     ```
+
+
 
 For each assignment, try to identify the error and propose a fix. This exercise will help you improve your debugging skills and deepen your understanding of these JavaScript concepts in the context of API interactions.
