@@ -41,7 +41,7 @@ console.log(JSON.stringify(apiResponse, null, 2));
 
 4. //**API Endpoints Array (Error: Duplicate endpoint)**
   
-  const weatherEndpoints = ['current', 'forecast','current','alerts'];
+  const weatherEndpoints = ['current', 'forecast','alerts'];
 
   console.log(weatherEndpoints);
 
@@ -63,27 +63,28 @@ console.log(simplifyWeatherData(weatherData));
    
 function filterHotDays(temperatures) {
   // Use the filter method to return only temperatures that are 30 or higher
-  return temperatures.filter(temp => temp >= 30);
+  return temperatures.filter(temp => temp >30);
 }
 
 const temps = [28, 32, 30, 25, 35];
-console.log(filterHotDays(temps)); // Expected output: [32, 30, 35]
+console.log(filterHotDays(temps)); // Expected output: [32, 35]
 
 
 7. //**Simple Error Handler (Error: Missing condition check)**
  
-   function handleApiError(response) {
-     console.error(`Error ${response.status}: ${response.message}`);
-   }
+function handleApiError(response) {
+  if (response.status !== 200) { // Add condition check
+    console.error(`Error ${response.status}: ${response.message}`);
+  }
+}
 
-   handleApiError({ status: 200, message: 'OK' });
-   // Should not log anything for status 200
-  
+handleApiError({ status: 200, message: 'OK' });
+// Should not log anything for status 200
 
 8. //**Basic Async API Call (Error: Missing await keyword)**
    
    async function fetchWeather(city) {
-     const response = fetch(`https://api.example.com/weather?city=${city}`);
+     const response = await fetch(`https://api.example.com/weather?city=${city}`);
      const data = await response.json();
      return data;
    }
