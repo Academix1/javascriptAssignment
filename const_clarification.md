@@ -1,7 +1,8 @@
+```
 const car = { make: "Toyota", model: "Corolla", year: 2020 };
 car.year = 2021; // This is allowed
 car = { make: "Honda", model: "Civic", year: 2022 }; // This would cause an error
-
+```
 
 The `=` , `==`, and `===` operators in JavaScript have different purposes and behaviors:
 
