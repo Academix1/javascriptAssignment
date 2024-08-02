@@ -105,13 +105,72 @@ function reverseString(str) {
 // 3. The `join('')` method joins the array back into a string.
 ```
 ```
+Sure! Here's the exercise with added clarity:
 
 ---
 
 ## Exercise 3: Debugging with ChatGPT
 
 **Task:**  
-You have a function that is supposed to remove all vowels from a string but is producing incorrect output. The function is below:
+You have a JavaScript function that is supposed to remove all vowels (a, e, i, o, u) from a given string. However, the function is not producing the correct output. Your task is to identify the issue with the function and fix it using ChatGPT.
+
+Here is the current implementation of the function:
 
 ```javascript
-function remove
+function removeVowels(str) {
+    const vowels = ['a', 'e', 'i', 'o', 'u'];
+    for (let i = 0; i < vowels.length; i++) {
+        str = str.replace(vowels[i], '');
+    }
+    return str;
+}
+
+const result = removeVowels("hello");
+console.log(result); // Expected output: "hll", but the actual output might be incorrect
+```
+
+**Steps:**
+
+1. **Identify the Problem**: Use the provided code and run it to see what output it produces. Compare this with the expected output.
+
+2. **Debug with ChatGPT**: Write a prompt to ChatGPT describing the issue you're facing, including the code snippet, the expected behavior, and the actual behavior you're observing.
+
+3. **Fix the Code**: Based on the feedback from ChatGPT, modify the code to correctly remove all vowels from the string.
+
+**Example Prompt:**
+
+"I have a JavaScript function that's supposed to remove all vowels from a string, but it's not working as expected. Here's the code:
+
+```javascript
+function removeVowels(str) {
+    const vowels = ['a', 'e', 'i', 'o', 'u'];
+    for (let i = 0; i < vowels.length; i++) {
+        str = str.replace(vowels[i], '');
+    }
+    return str;
+}
+
+const result = removeVowels('hello');
+console.log(result); // Expected output: 'hll', but the actual output is incorrect.
+```
+
+Can you help me identify what's wrong and how to fix it?"
+
+**Solution:**
+
+ChatGPT might explain that the `replace` function only removes the first occurrence of each vowel in the string, which is why the function doesn't work correctly for strings containing multiple instances of the same vowel. The solution would involve using a regular expression with the global flag (`/g`) to remove all occurrences of each vowel.
+
+Here's the corrected code:
+
+```javascript
+function removeVowels(str) {
+    return str.replace(/[aeiou]/g, '');
+}
+
+const result = removeVowels("hello");
+console.log(result); // Output: "hll"
+```
+
+This solution should correctly remove all vowels from any input string.
+---
+
