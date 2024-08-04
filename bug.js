@@ -91,8 +91,8 @@ console.log(simplifyWeatherData(weatherData));
 // 8. **Basic Async API Call (Error: Missing await keyword)**
    
    async function fetchWeather(city) {
-     const response = fetch(`https://api.example.com/weather?city=${city}`);
-     const data =  (await response).json;
+     const response = await fetch(`https://api.example.com/weather?city=${city}`);
+     const data =  response.json();
      return data;
    }
 
