@@ -41,7 +41,6 @@ For each of the following assignments, there is one intentional error. Your task
    const weatherEndpoints = [
      'current',
      'forecast',
-     'current',
      'alerts'
    ];
 
