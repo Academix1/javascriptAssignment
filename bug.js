@@ -5,7 +5,7 @@ For each of the following assignments, there is one intentional error. Your task
 1. **API Configuration Variables (Error: Incorrect use of const)**
    ```javascript
    const BASE_URL = 'https://api.example.com/v1';
-   const API_KEY = 'your-api-key-here';
+   let API_KEY = 'your-api-key-here';
 
    API_KEY = 'new-api-key'; // This line should cause an error
 
@@ -16,7 +16,8 @@ For each of the following assignments, there is one intentional error. Your task
 2. **Simple API URL Constructor (Error: Missing base URL)**
    ```javascript
    function constructApiUrl(endpoint) {
-     return `/${endpoint}`;
+   const BASE_URL = 'https://api.example.com/v1';
+     return `${ BASE_URL}/${endpoint}`;
    }
 
    console.log(constructApiUrl('weather'));
@@ -27,9 +28,11 @@ For each of the following assignments, there is one intentional error. Your task
    ```javascript
    const apiResponse = {
      status: 200,
+     data :{
      temperature: 22,
      humidity: 60,
      windSpeed: 5,
+     }, 
      error: null
    };
 
@@ -53,7 +56,7 @@ For each of the following assignments, there is one intentional error. Your task
    function simplifyWeatherData(data) {
      return {
        temp: data.temperature,
-       humid: data.humid
+       humid: data.humidity
      };
    }
 
@@ -74,19 +77,23 @@ For each of the following assignments, there is one intentional error. Your task
 
 7. **Simple Error Handler (Error: Missing condition check)**
    ```javascript
-   function handleApiError(response) {
-     console.error(`Error ${response.status}: ${response.message}`);
+   function handleApiError({status,message ,error}) {
+   if(status>=200){
+     console.error(`Error ${status}: ${message}`);
+     if (errors){
+     error.forEach((err) => console.error(`- ${err}`));
+     }
    }
-
-   handleApiError({ status: 200, message: 'OK' });
+  }
+   handleApiError({ status: 200, message: 'OK',errors:["DOes not exist"] });
    // Should not log anything for status 200
    ```
 
 8. **Basic Async API Call (Error: Missing await keyword)**
    ```javascript
    async function fetchWeather(city) {
-     const response = fetch(`https://api.example.com/weather?city=${city}`);
-     const data = response.json();
+     const response = await fetch(`https://api.example.com/weather?city=${city}`);
+     const data = await response.json();
      return data;
    }
 
@@ -105,7 +112,7 @@ For each of the following assignments, there is one intentional error. Your task
    }
 
    async function getProcessedData() {
-     const rawData = fetchData();
+     const rawData = await fetchData();
      return processData(rawData);
    }
 
@@ -120,7 +127,7 @@ For each of the following assignments, there is one intentional error. Your task
 
       return function() {
         const currentTime = Date.now();
-        if (currentTime - startTime <= interval) {
+        if (currentTime - startTime >= interval) {
           calls = 0;
           startTime = currentTime;
         }
