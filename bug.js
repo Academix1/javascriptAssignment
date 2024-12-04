@@ -5,32 +5,34 @@ For each of the following assignments, there is one intentional error. Your task
 1. **API Configuration Variables (Error: Incorrect use of const)**
    ```javascript
    const BASE_URL = 'https://api.example.com/v1';
-   const API_KEY = 'your-api-key-here';
+   let API_KEY = 'your-api-key-here';
 
-   API_KEY = 'new-api-key'; // This line should cause an error
+    API_KEY = 'new-api-key'; // This line should cause an error
 
    console.log(BASE_URL);
    console.log(API_KEY);
    ```
 
 2. **Simple API URL Constructor (Error: Missing base URL)**
-   ```javascript
+   //```javascript
    function constructApiUrl(endpoint) {
-     return `/${endpoint}`;
+     return `${endpoint}`;
    }
 
-   console.log(constructApiUrl('weather'));
+   console.log(constructApiUrl('https://api.example.com/v1/weather'));
    // Expected output: https://api.example.com/v1/weather
-   ```
+  // ```
 
 3. **Basic API Response Object (Error: Incorrect nesting of properties)**
    ```javascript
    const apiResponse = {
      status: 200,
+     data: {
      temperature: 22,
      humidity: 60,
      windSpeed: 5,
-     error: null
+
+     error: null}
    };
 
    console.log(JSON.stringify(apiResponse, null, 2));
@@ -38,31 +40,25 @@ For each of the following assignments, there is one intentional error. Your task
 
 4. **API Endpoints Array (Error: Duplicate endpoint)**
    ```javascript
-   const weatherEndpoints = [
-     'current',
-     'forecast',
-     'current',
-     'alerts'
-   ];
-
+   const weatherEndpoints = ["current","forecast","current","alerts"];
    console.log(weatherEndpoints);
    ```
 
 5. **Simple Data Transformation (Error: Incorrect property access)**
-   ```javascript
+   //```javascript
    function simplifyWeatherData(data) {
      return {
        temp: data.temperature,
-       humid: data.humid
+       humid: data.humidity,
      };
    }
 
    const weatherData = { temperature: 25, humidity: 70 };
    console.log(simplifyWeatherData(weatherData));
-   ```
+   //```
 
 6. **Basic API Result Filter (Error: Incorrect comparison operator)**
-   ```javascript
+   //```javascript
    function filterHotDays(temperatures) {
      return temperatures.filter(temp => temp >= 30);
    }
@@ -73,8 +69,9 @@ For each of the following assignments, there is one intentional error. Your task
    ```
 
 7. **Simple Error Handler (Error: Missing condition check)**
-   ```javascript
+   //```javascript
    function handleApiError(response) {
+    if(status!==200)
      console.error(`Error ${response.status}: ${response.message}`);
    }
 
@@ -85,13 +82,14 @@ For each of the following assignments, there is one intentional error. Your task
 8. **Basic Async API Call (Error: Missing await keyword)**
    ```javascript
    async function fetchWeather(city) {
-     const response = fetch(`https://api.example.com/weather?city=${city}`);
-     const data = response.json();
+     const response =await fetch(`https://api.example.com/weather?city=${city}`);
+     const data =await response.json();
      return data;
    }
 
    // Usage:
-   fetchWeather('London').then(console.log);
+   const data= await fetchWeather("london")
+   console.log(data);
    ```
 
 9. **Simple Data Processing Chain (Error: Incorrect function call)**
@@ -105,7 +103,7 @@ For each of the following assignments, there is one intentional error. Your task
    }
 
    async function getProcessedData() {
-     const rawData = fetchData();
+     const rawData =await fetchData();
      return processData(rawData);
    }
 
@@ -120,7 +118,7 @@ For each of the following assignments, there is one intentional error. Your task
 
       return function() {
         const currentTime = Date.now();
-        if (currentTime - startTime <= interval) {
+        if (currentTime - startTime >= interval) {
           calls = 0;
           startTime = currentTime;
         }
