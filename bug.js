@@ -3,9 +3,9 @@
 For each of the following assignments, there is one intentional error. Your task is to identify and fix the error.
 
 1. **API Configuration Variables (Error: Incorrect use of const)**
-   ```javascript
+   ```javascript`
    const BASE_URL = 'https://api.example.com/v1';
-   const API_KEY = 'your-api-key-here';
+   let API_KEY = 'your-api-key-here';
 
    API_KEY = 'new-api-key'; // This line should cause an error
 
@@ -15,11 +15,13 @@ For each of the following assignments, there is one intentional error. Your task
 
 2. **Simple API URL Constructor (Error: Missing base URL)**
    ```javascript
-   function constructApiUrl(endpoint) {
-     return `/${endpoint}`;
-   }
+   const BASE_URL = 'https://api.example.com/v1';
+  
+function constructApiUrl(endpoint) {
+    return `${BASE_URL}/${endpoint}`;
+  }
 
-   console.log(constructApiUrl('weather'));
+  console.log(constructApiUrl('weather'));
    // Expected output: https://api.example.com/v1/weather
    ```
 
@@ -27,9 +29,11 @@ For each of the following assignments, there is one intentional error. Your task
    ```javascript
    const apiResponse = {
      status: 200,
+     data:{
      temperature: 22,
      humidity: 60,
      windSpeed: 5,
+     },
      error: null
    };
 
@@ -39,10 +43,12 @@ For each of the following assignments, there is one intentional error. Your task
 4. **API Endpoints Array (Error: Duplicate endpoint)**
    ```javascript
    const weatherEndpoints = [
-     'current',
-     'forecast',
-     'current',
-     'alerts'
+     
+    
+    "current",
+     "forecast",
+     "current",
+     "alerts"
    ];
 
    console.log(weatherEndpoints);
@@ -53,7 +59,7 @@ For each of the following assignments, there is one intentional error. Your task
    function simplifyWeatherData(data) {
      return {
        temp: data.temperature,
-       humid: data.humid
+       humid: data.humidity
      };
    }
 
@@ -75,10 +81,16 @@ For each of the following assignments, there is one intentional error. Your task
 7. **Simple Error Handler (Error: Missing condition check)**
    ```javascript
    function handleApiError(response) {
-     console.error(`Error ${response.status}: ${response.message}`);
-   }
+    if(response.status >=200){
+    console.error(`Error ${response.status}: ${response.message}`);
+    }
+        if(response.errors){
+            response.errors.forEach((err) =>console.error(`-${err}`));
+        }
+    }
 
-   handleApiError({ status: 200, message: 'OK' });
+
+  handleApiError({ status: 200, message: "OK",errors:["does not exit"] });
    // Should not log anything for status 200
    ```
 
@@ -105,7 +117,7 @@ For each of the following assignments, there is one intentional error. Your task
    }
 
    async function getProcessedData() {
-     const rawData = fetchData();
+     const rawData =await fetchData();
      return processData(rawData);
    }
 
@@ -120,7 +132,7 @@ For each of the following assignments, there is one intentional error. Your task
 
       return function() {
         const currentTime = Date.now();
-        if (currentTime - startTime <= interval) {
+        if (currentTime - startTime >= interval) {
           calls = 0;
           startTime = currentTime;
         }
